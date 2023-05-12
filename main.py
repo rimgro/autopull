@@ -8,7 +8,7 @@ import json
 
 def execute_command(command):
     try:
-        subprocess.check_output(command, shell=True)
+        subprocess.check_output(command)
         print('Command executed successfully')
     except subprocess.CalledProcessError as e:
         print('Error executing command:', e.output)
@@ -33,6 +33,8 @@ def webhook():
         # для загрузки последних изменений репозитория
         print(fr"Получен вебхук из репозитория {payload['repository']['name']} от {payload['pusher']['name']}")
         execute_command(action)
+
+    return "Webhook recivied"
 
 
 if __name__ == '__main__':
