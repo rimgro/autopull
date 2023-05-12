@@ -15,7 +15,7 @@ def execute_command(command):
 
 
 # Загрузка данных из файла конфига
-with open(os.path.abspath(__file__) + 'config.json') as file:
+with open(os.path.dirname(os.path.abspath(__file__)) + 'config.json') as file:
     config_data = json.load(file)
 
 port = config_data.get("port", 12345)
