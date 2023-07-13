@@ -8,5 +8,5 @@ activate () {
 }
 activate
 echo running
-nohup python3 ./main.py &
+nohup ./venv/bin/python ./main.py &
 
