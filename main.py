@@ -3,8 +3,10 @@ import subprocess
 import fcntl
 from flask import Flask, request
 import json
+import os
 
-LOCK_FILE = "./autopull.lock"
+
+LOCK_FILE = os.path.dirname(os.path.abspath(__file__)) + "/autopull.lock"
 
 
 def acquire_lock():
