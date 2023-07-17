@@ -4,7 +4,6 @@ import fcntl
 from flask import Flask, request
 import json
 import os
-import modules.dockerexec
 
 LOCK_FILE = os.path.dirname(os.path.abspath(__file__)) + "/autopull.lock"
 
