@@ -2,5 +2,9 @@
   "port": 12345,
   "webhook_route": "/webhook",
   "action": ["git", "pull", "origin", "master"],
-  "path" : "/home/yourpath/"
+  "path" : "/home/yourpath/",
+  "after-pull": {
+    "docker_command": "echo hi",
+    "container_name": "my_container"
+  }
 }

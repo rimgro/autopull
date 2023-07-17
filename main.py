@@ -4,7 +4,7 @@ import fcntl
 from flask import Flask, request
 import json
 import os
-
+import modules.dockerexec
 
 LOCK_FILE = os.path.dirname(os.path.abspath(__file__)) + "/autopull.lock"
 
@@ -57,6 +57,12 @@ try:
             print(fr"Получен вебхук из репозитория {payload['repository']['name']} от {payload['pusher']['name']}")
             os.chdir(repo_path)
             execute_command(action)
+            after_pull = config_data.get("after-pull", [])
+            if after_pull:
+                docker_command = after_pull["docker_command"]
+                container_name = after_pull["container_name"]
+                if docker_command and container_name:
+                    modules.dockerexec.run(command=docker_command, container_name=container_name)
 
         return "Webhook recivied"
 
