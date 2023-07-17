@@ -28,7 +28,7 @@ def release_lock():
 
 def execute_command(command):
     try:
-        subprocess.check_output(command)
+        subprocess.run(command, capture_output=True, shell=True)
         print('Command executed successfully')
     except subprocess.CalledProcessError as e:
         print('Error executing command:', e.output)
@@ -57,12 +57,12 @@ try:
             print(fr"Получен вебхук из репозитория {payload['repository']['name']} от {payload['pusher']['name']}")
             os.chdir(repo_path)
             execute_command(action)
-            after_pull = config_data.get("after-pull", [])
-            if after_pull:
-                docker_command = after_pull["docker_command"]
-                container_name = after_pull["container_name"]
-                if docker_command and container_name:
-                    modules.dockerexec.run(command=docker_command, container_name=container_name)
+            # after_pull = config_data.get("after-pull", [])
+            # if after_pull:
+            #     docker_command = after_pull["docker_command"]
+            #     container_name = after_pull["container_name"]
+            #     if docker_command and container_name:
+            #         modules.dockerexec.run(command=docker_command, container_name=container_name)
 
         return "Webhook recivied"
 
